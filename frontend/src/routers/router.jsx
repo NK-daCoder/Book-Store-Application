@@ -5,6 +5,8 @@ import App from "../App";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Discovery from "../components/Discovery";
+import ShoppingBag from "../components/ShoppingBag";
+import Checkout from "../components/CheckOut";
 
 const router = createBrowserRouter(
     [
@@ -40,6 +42,14 @@ const router = createBrowserRouter(
                 {
                     path: "/register",
                     element: <Register />,
+                },
+                {
+                    path: "/shopping-bag",
+                    element: <ShoppingBag />,
+                },
+                {
+                    path: "/checkout",
+                    element: <Checkout />
                 }
             ]
         }

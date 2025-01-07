@@ -19,33 +19,18 @@ const Discovery = () => {
     return (
         <>
             <MainHeader />
-            <article className="border p-2 rounded-2xl">
-                <section className="relative flex justify-between items-center">
-                    <h1 className="font-semibold text-stone-600 text-lg flex items-center justify-center gap-1">
-                        <span className="material-symbols-rounded !text-3xl pb-1">mode_heat</span>
-                        Top Sellers
-                    </h1>
-                    <button className="rounded-2xl text-md bg-blue-100 border-blue-400 border text-blue-500 flex items-center justify-center font-semibold px-3 py-[.5rem]">
-                        See All
-                        <span className="material-symbols-rounded !text-md text-center">chevron_right</span>
-                    </button>
-                </section>
-            </article>
-            <article className="border p-2 rounded-2xl">
+            <article className="border py-3 px-2 rounded-2xl ">
                 <section className="relative flex justify-between items-center">
                     <h2 className="font-semibold text-stone-600 text-lg flex items-center justify-center gap-1">
                         <span className="material-symbols-rounded">book</span>
                         Books
                     </h2>
-                    <button
-                        onClick={toggleCategory}
-                        className="rounded-2xl text-md bg-blue-100 text-blue-500 flex items-center justify-center gap-1 font-semibold px-3 py-[.5rem] border border-blue-400"
-                    >
+                    <button onClick={toggleCategory} className="rounded-2xl text-md bg-blue-100 text-blue-500 flex items-center justify-center gap-1 font-semibold px-3 py-[.5rem] border border-blue-400">
                         Categories
                         <span className="material-symbols-rounded">filter_list</span>
                     </button>
                     <ul
-                        className={`transform transition-transform ${
+                        className={`transform transition-transform overflow-y-auto h-[15rem] ${
                             toggleCategories ? 'scale-100' : 'scale-0'
                         } absolute flex flex-col gap-3 right-0 top-12 w-[8.5rem] px-4 py-2 bg-white rounded-md border`}
                     >

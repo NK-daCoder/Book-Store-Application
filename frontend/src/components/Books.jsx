@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from './BookCard';
 
+
 const Books = ({ selectedCategory }) => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
@@ -27,15 +28,17 @@ const Books = ({ selectedCategory }) => {
 
     return (
         <section>
-            <ul className="grid grid-cols-2 gap-3">
+            <ul className="grid grid-cols-2 gap-3 py-4">
                 {filteredBooks.map((book, index) => (
                     <li key={index}>
                         <BookCard
                             bookImage={book.coverImage}
                             bookTitle={book.title}
-                            bookDescription={book.description}
+                            // if the book descriptions length is greater than 80 than slice it to 80 chars otherwise leave as is
+                            bookDescription={book.description.length > 50 ? `${book.description.slice(0, 50)}...` : book.description }
                             bookPreviousPrice={book.oldPrice}
                             bookCurrentPrice={book.newPrice}
+                            addBookToCart={book}
                         />
                     </li>
                 ))}

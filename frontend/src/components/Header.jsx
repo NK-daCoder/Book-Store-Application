@@ -2,47 +2,48 @@ import React, { useState } from 'react';
 import companyLogo from "../assets/book-alchemy-log.png";
 import { Link } from "react-router-dom";
 
+export const buttonNav = [
+  {
+    buttonType: "Discovery",
+    buttonIcon: "explore",
+    path: "/", // Path to Discovery
+  },
+  {
+    buttonType: "Bookmarks",
+    buttonIcon: "bookmark",
+    path: "/bookmarks", // Path to Bookmarks
+  },
+  {
+    buttonType: "Favorites",
+    buttonIcon: "favorite",
+    path: "/favorites", // Path to Favorites (needs to be defined in router)
+  },
+  {
+    buttonType: "Purchased",
+    buttonIcon: "shopping_bag",
+    path: "/purchased", // Path to Orders
+  },
+  {
+    buttonType: "Settings",
+    buttonIcon: "settings",
+    path: "/settings", // Path to Settings (needs to be defined in router)
+  },
+  {
+    buttonType: "Support",
+    buttonIcon: "contact_support",
+    path: "/support", // Path to Support (needs to be defined in router)
+  },
+  {
+    buttonType: "Logout",
+    buttonIcon: "logout",
+    path: "/logout", // Path to Logout (implement appropriate logout logic)
+  },
+];
+
+
 const Header = () => {
   // 0 enables first button of the array to be active
   const [activeState, setActiveState] = useState(0);
-
-  const buttonNav = [
-    {
-      buttonType: "Discovery",
-      buttonIcon: "explore",
-      path: "/", // Path to Discovery
-    },
-    {
-      buttonType: "Bookmarks",
-      buttonIcon: "bookmark",
-      path: "/bookmarks", // Path to Bookmarks
-    },
-    {
-      buttonType: "Favorites",
-      buttonIcon: "favorite",
-      path: "/favorites", // Path to Favorites (needs to be defined in router)
-    },
-    {
-      buttonType: "Purchased",
-      buttonIcon: "shopping_bag",
-      path: "/purchased", // Path to Orders
-    },
-    {
-      buttonType: "Settings",
-      buttonIcon: "settings",
-      path: "/settings", // Path to Settings (needs to be defined in router)
-    },
-    {
-      buttonType: "Support",
-      buttonIcon: "contact_support",
-      path: "/support", // Path to Support (needs to be defined in router)
-    },
-    {
-      buttonType: "Logout",
-      buttonIcon: "logout",
-      path: "/logout", // Path to Logout (implement appropriate logout logic)
-    },
-  ];
 
   return (
     <header className="flex flex-col py-4 max-h-screen w-60 bg-white">

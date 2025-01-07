@@ -3,6 +3,15 @@ import avatar from "../assets/avatar.png";
 
 // to link to your paths from the router folder
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+
+// getting the cart items from store.js
+export const getCartItems = () => {
+    const getCartItems = useSelector(state => state.cart.cartItems);
+    // console.log(getCartItems);
+    return getCartItems
+}
+
 
 const MainHeader = () => {
     const [toggle, setToggle] = useState(false);
@@ -11,6 +20,8 @@ const MainHeader = () => {
         // makeing toggle state true by using !toggle
         setToggle(!toggle);
     }
+
+    const items = getCartItems();
 
     return (
         
@@ -21,7 +32,7 @@ const MainHeader = () => {
                     arrow_drop_down
                 </span>
             </button>
-            <ul className={`transition-transform absolute -left-1 top-16 bg-white py-6 grid gap-2 px-4 border rounded-2xl ${toggle ? "scale-1" : "scale-0"}`}>
+            <ul className={`z-10 transition-transform absolute -left-1 top-16 bg-white py-6 grid gap-2 px-4 border rounded-2xl ${toggle ? "scale-1" : "scale-0"}`}>
                 <li><Link to="" className="text-gray-400 transition-all hover:text-gray-600">Dashboard</Link></li>
                 <li><Link to="/login" className="text-gray-400 transition-all hover:text-gray-600">Login Page</Link></li>
             </ul>
@@ -42,14 +53,19 @@ const MainHeader = () => {
                         </span>
                     </button>
                 </li>
-                <li>
-                    <button className="flex items-center text-gray-400 border rounded-xl p-2">
+                <li className="relative">
+                    <Link to="/shopping-bag" className="flex gap-2 text-md items-center text-gray-400 border rounded-xl p-2">
                         <span className="material-symbols-rounded !text-md">
                             shopping_cart
                         </span>
-                    </button>
+                        {/* updateing the html based on the items added in the cart the cart */}
+                        {
+                            items.length > 0 ?  items.length : "0"
+                        }
+                    </Link>
                 </li>
             </ul>
+
         </section>
     )
 }
