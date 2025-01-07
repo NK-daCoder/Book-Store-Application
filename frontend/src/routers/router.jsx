@@ -5,8 +5,9 @@ import App from "../App";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Discovery from "../components/Discovery";
-import ShoppingBag from "../components/ShoppingBag";
+import ShoppingBag, { totalCostOfItems } from "../components/ShoppingBag";
 import Checkout from "../components/CheckOut";
+import { getCartItems } from "../components/MainHeader";
 
 const router = createBrowserRouter(
     [
@@ -49,8 +50,9 @@ const router = createBrowserRouter(
                 },
                 {
                     path: "/checkout",
-                    element: <Checkout />
+                    element: <Checkout />,
                 }
+                
             ]
         }
     ]

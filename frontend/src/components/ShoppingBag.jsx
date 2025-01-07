@@ -6,9 +6,16 @@ import { useDispatch } from 'react-redux';
 import { clearFromCart } from '../redux/features/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
 
+
+export const totalCostOfItems = (itemsArray) => {
+    return itemsArray.reduce((accumulator, item) => accumulator + item.newPrice, 0).toFixed(2);
+};
+
+
+
 const ShoppingBag = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Use the useNavigate hook here
+    const navigate = useNavigate();
 
     const handleClearCart = () => {
         dispatch(clearFromCart());
@@ -17,16 +24,31 @@ const ShoppingBag = () => {
     const items = getCartItems();
 
     // Calculating the total price for each item in the cart
-    const totalPrice = items.reduce((accumulator, item) => accumulator + item.newPrice, 0).toFixed(2);
+    const totalPrice = totalCostOfItems(items)
 
-    // Handle Checkout
+    // Handle Checkout:
     const handleCheckout = () => {
+        /* 
+            if the button is clicked and the 
+            length of the item is > 0 we use a 
+            navigate state which will take us to the checkout page and also
+            we have a state object which is used in the Checkout.jsx file
+            within the jsx file we have a location state defined which 'destructures'
+            the state object and then extracts the totalPrice and total items length and populates them 
+            within the necessary p elements 
+        */
         if (items.length > 0) {
-            navigate('/checkout'); // Use navigate here instead of Navigate
+            navigate('/checkout', {
+                state: {
+                    totalCost: totalPrice,
+                    totalItems: items.length,
+                },
+            });
         } else {
             alert("Your shopping bag is empty. Please add items before proceeding to checkout.");
         }
     };
+    
 
     return (
         <>
@@ -60,7 +82,7 @@ const ShoppingBag = () => {
                                             productTitle={item.title}
                                             quantity={1}
                                             category={item.category}
-                                            currentPrice={item.newPrice}
+                                            currentPrice={item.newPrice.toString()}
                                             product={item}
                                         />
                                     </li>
@@ -73,7 +95,7 @@ const ShoppingBag = () => {
                 <section className="flex justify-between my-4">
                     <h3 className="text-xl">SubTotal</h3>
                     <p className="text-xl">
-                        {items.length > 0 ? totalPrice : 0}
+                        {items.length > 0 ? totalPrice.toString() : "0"}
                     </p>
                 </section>
             
