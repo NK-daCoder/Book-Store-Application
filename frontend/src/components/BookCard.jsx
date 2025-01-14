@@ -16,7 +16,7 @@ const BookCard = ({bookImage, bookTitle, bookDescription, bookPreviousPrice, boo
     }
   
     return (
-    <article className="rounded-2xl flex gap-3 flex-col md:flex-row p-3 mt-4 transition-transform hover:shadow-md h-[20rem]">
+    <article className="rounded-2xl flex gap-3 flex-col md:flex-row p-3 mt-4 transition-transform hover:shadow-md h-[20rem] w-full">
         <img src={getImageUrl(bookImage)} alt={bookTitle} className="w-[10rem]"/>
         <section className="flex flex-col gap-3 pt-14 h-full relative">
             <h2 className="text-xl font-semibold">{bookTitle}</h2>

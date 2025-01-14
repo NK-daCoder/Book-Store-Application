@@ -10,14 +10,17 @@ const mongoDBConnection = process.env.DB_URL;
 
 // middleware
 app.use(express.json())
-app.use(cors({
-    // fontend url
-    origin: ["http://localhost:5173"],
-    credential: true,
-}))
+
+const corsOptions = {
+    origin: ['http://localhost:5173'], // Replace with your frontend URL
+    credentials: true, // Allow cookies or other credentials
+};
+
+app.use(cors(corsOptions));
 
 // routes
 const bookRoutes = require("./src/books/book.route")
+// main api route. How it will look: `http://localhost:5173/api/books/${bookRoutes}`
 app.use("/api/books", bookRoutes)
 
 async function main() {

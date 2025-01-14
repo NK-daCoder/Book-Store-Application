@@ -19,7 +19,7 @@ const Discovery = () => {
     return (
         <>
             <MainHeader />
-            <article className="border py-3 px-2 rounded-2xl ">
+            <article className="border py-3 px-2 rounded-2xl">
                 <section className="relative flex justify-between items-center">
                     <h2 className="font-semibold text-stone-600 text-lg flex items-center justify-center gap-1">
                         <span className="material-symbols-rounded">book</span>
@@ -32,13 +32,13 @@ const Discovery = () => {
                     <ul
                         className={`transform transition-transform overflow-y-auto h-[15rem] ${
                             toggleCategories ? 'scale-100' : 'scale-0'
-                        } absolute flex flex-col gap-3 right-0 top-12 w-[8.5rem] px-4 py-2 bg-white rounded-md border`}
+                        } absolute flex flex-col gap-3 right-0 top-12 w-[8.5rem] px-4 py-2 bg-white rounded-md border z-50`}
                     >
                         {categories.map((category, index) => (
                             <li key={index}>
                                 <button
                                     onClick={() => handleCategoryClick(category)}
-                                    className="px-2 py-2 border w-full rounded-md font-semibold"
+                                    className="px-2 py-2 border w-full rounded-md font-semibold bg-white z-50"
                                 >
                                     {category}
                                 </button>

@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from './BookCard';
+import { useFetchAllBooksQuery } from '../redux/features/books/booksApi';
 
 
 const Books = ({ selectedCategory }) => {
-    const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
 
-    useEffect(() => {
-        fetch("data/books.json")
-            .then((response) => response.json())
-            .then((data) => setBooks(data))
-            .catch((error) => console.error("Error fetching books:", error));
-    }, []);
+    const {data: books = []} = useFetchAllBooksQuery();
 
     useEffect(() => {
-        // Filter books based on selected category
-        if (selectedCategory === "All") {
-            setFilteredBooks(books);
-        } else {
-            const filtered = books.filter(
-                (book) => book.category.toLowerCase() === selectedCategory.toLowerCase()
-            );
-            setFilteredBooks(filtered);
+        // Check if books exist to avoid unnecessary updates
+        if (books?.length > 0) {
+            if (selectedCategory === "All") {
+                setFilteredBooks(books);
+            } else {
+                const filtered = books.filter(
+                    (book) => book.category?.toLowerCase() === selectedCategory.toLowerCase()
+                );
+                setFilteredBooks(filtered);
+            }
         }
-        
     }, [books, selectedCategory]);
+    
 
     return (
         <section>
-            <ul className="grid grid-cols-2 gap-3 py-4">
+            <ul className="flex flex-wrap gap-3 py-4">
                 {filteredBooks.map((book, index) => (
-                    <li key={index}>
+                    <li key={index} className="w-[23rem]">
                         <BookCard
                             bookImage={book.coverImage}
                             bookTitle={book.title}
