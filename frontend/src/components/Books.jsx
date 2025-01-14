@@ -25,7 +25,7 @@ const Books = ({ selectedCategory }) => {
 
     return (
         <section>
-            <ul className="flex flex-wrap gap-3 py-4">
+            <ul className="flex flex-wrap justify-center gap-3 py-4">
                 {filteredBooks.map((book, index) => (
                     <li key={index} className="w-[23rem]">
                         <BookCard

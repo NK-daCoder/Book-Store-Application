@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Checkout = () => {
   const location = useLocation();
   const { totalCost, totalItems } = location.state || { totalCost: 0, totalItems: 0 };
+
+  const {currentUser} = useAuth();
+  
 
   const [formData, setFormData] = useState({
     fullName: "",

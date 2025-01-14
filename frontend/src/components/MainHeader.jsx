@@ -4,6 +4,7 @@ import avatar from "../assets/avatar.png";
 // to link to your paths from the router folder
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { useAuth } from '../context/AuthContext';
 
 // getting the cart items from store.js
 export const getCartItems = () => {
@@ -23,11 +24,18 @@ const MainHeader = () => {
 
     const items = getCartItems();
 
+    const {currentUser, logout} = useAuth();
+
+    const handleLogout = () => {
+        logout();
+    }
+
     return (
         
         <section className="relative flex justify-between items-center p-2 border rounded-2xl ">
             <button onClick={toggleAccountMenu} className={`flex items-center gap-1`}>
-                <img src={avatar} alt="avatar" />
+                {currentUser ? <img src={avatar} alt="avatar" className="rounded-full border border-blue-700"/> : <span className="material-symbols-rounded">account_circle</span> }
+                
                 <span className={`material-symbols-rounded transform transition-transform ease-in-out duration-300 ${toggle ? "rotate-180" : "rotate-0"}`}>
                     arrow_drop_down
                 </span>
@@ -35,6 +43,7 @@ const MainHeader = () => {
             <ul className={`z-10 transition-transform absolute -left-1 top-16 bg-white py-6 grid gap-2 px-4 border rounded-2xl ${toggle ? "scale-1" : "scale-0"}`}>
                 <li><Link to="" className="text-gray-400 transition-all hover:text-gray-600">Dashboard</Link></li>
                 <li><Link to="/login" className="text-gray-400 transition-all hover:text-gray-600">Login Page</Link></li>
+                <li><button onClick={handleLogout} className="text-gray-400 transition-all hover:text-gray-600">Logout</button></li>
             </ul>
             <div className="flex items-center border w-1/2 rounded-2xl overflow-hidden">
                 <input type="search" placeholder="Search Our Collection..." className={`w-full p-2`} />

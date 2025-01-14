@@ -8,6 +8,7 @@ import Discovery from "../components/Discovery";
 import ShoppingBag, { totalCostOfItems } from "../components/ShoppingBag";
 import Checkout from "../components/CheckOut";
 import { getCartItems } from "../components/MainHeader";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter(
     [
@@ -50,7 +51,9 @@ const router = createBrowserRouter(
                 },
                 {
                     path: "/checkout",
-                    element: <Checkout />,
+                    // to protect the checkout from all users who are not signed in they will be 
+                    // prompted to login/sign-in if they haven't done so already 
+                    element: <PrivateRoute><Checkout /></PrivateRoute>,
                 }
                 
             ]
