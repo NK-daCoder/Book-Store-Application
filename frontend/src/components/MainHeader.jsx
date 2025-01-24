@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import avatar from "../assets/avatar.png";
 
 // to link to your paths from the router folder
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useAuth } from '../context/AuthContext';
 
 // getting the cart items from store.js
 export const getCartItems = () => {
     const getCartItems = useSelector(state => state.cart.cartItems);
-    // console.log(getCartItems);
+    console.log(getCartItems);
     return getCartItems
 }
 
@@ -21,6 +21,8 @@ const MainHeader = () => {
         // makeing toggle state true by using !toggle
         setToggle(!toggle);
     }
+
+    const navigate = useNavigate();
 
     const items = getCartItems();
 
@@ -41,7 +43,7 @@ const MainHeader = () => {
                 </span>
             </button>
             <ul className={`z-10 transition-transform absolute -left-1 top-16 bg-white py-6 grid gap-2 px-4 border rounded-2xl ${toggle ? "scale-1" : "scale-0"}`}>
-                <li><Link to="" className="text-gray-400 transition-all hover:text-gray-600">Dashboard</Link></li>
+                <li><Link to="/dashboard" className="text-gray-400 transition-all hover:text-gray-600">Dashboard</Link></li>
                 <li><Link to="/login" className="text-gray-400 transition-all hover:text-gray-600">Login Page</Link></li>
                 <li><button onClick={handleLogout} className="text-gray-400 transition-all hover:text-gray-600">Logout</button></li>
             </ul>

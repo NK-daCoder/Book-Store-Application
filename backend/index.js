@@ -19,9 +19,26 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // routes
-const bookRoutes = require("./src/books/book.route")
+const bookRoutes = require("./src/books/book.route");
+const orderRoutes = require('./src/orders/order.route');
+const userRoutes = require('./src/users/user.route');
+
 // main api route. How it will look: `http://localhost:5173/api/books/${bookRoutes}`
 app.use("/api/books", bookRoutes)
+app.use("/api/orders", orderRoutes)
+app.use("/api/auth", userRoutes)
+
+// handelling routes
+// Add this after all your routes
+app.use((req, res, next) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
+});
 
 async function main() {
     await mongoose.connect(mongoDBConnection);

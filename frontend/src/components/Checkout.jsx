@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useCreateOrderMutation } from "../redux/features/orders/ordersApi";
+import { getCartItems } from "./MainHeader";
 
 const Checkout = () => {
   const location = useLocation();
   const { totalCost, totalItems } = location.state || { totalCost: 0, totalItems: 0 };
+  const navigate = useNavigate();
 
+  // getting current user
   const {currentUser} = useAuth();
   
 
@@ -19,7 +23,11 @@ const Checkout = () => {
     state: "",
     zipcode: "",
     termsAccepted: false,
+    productIds: getCartItems().map((item) => item._id),
+    totalPrice: totalCost
   });
+
+  const [createOrder, {isLoading, error}] = useCreateOrderMutation();
 
   // Handle change in input fields
   const handleChange = (e) => {
@@ -31,11 +39,36 @@ const Checkout = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form from reloading the page
     console.log(formData); // Log the form data object to the console
-    return formData;
+
+    // populating backend feilds to fit corresponding mongoose schema.
+    const orderPayload = {
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.phoneNumber,
+      address: {
+          city: formData.city,
+          country: formData.region,
+          state: formData.state,
+          zipcode: formData.zipcode,
+      },
+      productIds: formData.productIds,
+      totalPrice: formData.totalPrice,
+    };
+
+    try {
+      await createOrder(orderPayload).unwrap();
+      alert("Your Order is Confirmed Successfully");
+      navigate("/");
+    } catch (error) {
+        console.error("Error Placing Order", error);
+        alert("Failed to place an order");
+    }
   };
+
+  if (isLoading) return <div>Is Loading......</div>
 
   return (
     <article className="h-full bg-gray-100 p-5 flex flex-col justify-center">

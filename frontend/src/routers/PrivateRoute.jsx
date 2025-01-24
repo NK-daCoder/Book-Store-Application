@@ -5,7 +5,12 @@ import { Navigate } from 'react-router-dom';
 
 // we set this private route to protect the checkout page.
 const PrivateRoute = ({children}) => {
-    const {currentUser} = useAuth();
+    const {currentUser, loading} = useAuth();
+
+    if(loading) {
+        return <div>Loading....</div>
+    }
+    
     if (currentUser) {
         // children are the nested elements that will go within this functional component
         return children;

@@ -46,11 +46,14 @@ export const AuthProvider = ({children}) => {
             setCurrentUser(user);
             setLoading(false);
             if (user) {
-                const {email, userName, photoUrl} = user;
+                const { email, displayName, photoURL } = user;
                 const userData = {
-                    email, username: displayName, photo: photoUrl
-                } 
+                    email,
+                    username: displayName, 
+                    photo: photoURL
+                };
             }
+            
             return () => unsubscribe();
         })
     }, [])
@@ -59,6 +62,7 @@ export const AuthProvider = ({children}) => {
         currentUser,
         registerUser,
         loginUser,
+        loading,
         signInWithGoogle,
         logout
     }
